@@ -2,11 +2,11 @@
   <div class="trackCard">
     <div class="trackCard_img" />
     <div class="trackCard_note">
-      <ClientOnly>
+      <client-only>
         <time class="trackCard_note_time">
           {{ formatedDate }}
         </time>
-      </ClientOnly>
+      </client-only>
       <br>
       <p class="trackCard_title">
         蒙古タンメン中本
@@ -36,7 +36,7 @@
       return ''
     }
 
-    return formatInTimeZone(props.track.checked_at, 'Asia/Tokyo', 'yyyy/MM/dd: hh:mm')
+    return formatInTimeZone(props.track.checked_at, 'Asia/Tokyo', 'yyyy/MM/dd: HH:mm')
   })
 </script>
 

@@ -35,6 +35,7 @@
 
   .shopCard_img {
     @apply min-w-20;
+    @apply bg-no-repeat;
     background: v-bind(shopImg);
     background-size: auto 100%;
   }

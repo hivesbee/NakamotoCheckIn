@@ -1,5 +1,9 @@
 
+import { useUser } from './user'
+
 export const useTrack = defineStore('track', () => {
+  const user = useUser()
+
   const tracks = ref<CheckInLogDetail[]>([])
 
   const fetch = async (id: User['id']) => {
@@ -17,12 +21,19 @@ export const useTrack = defineStore('track', () => {
     tracks.value = data.value
   }
 
-  const checkIn = async (userId: User['id'], shopId: Shop['id']) => {
+  const checkIn = async (shopId: Shop['id'], checkedAt?: Track['checked_at']) => {
+    const user = useUser()
+
+    if (user.user === null) {
+      throw new Error('User not found.')
+    }
+
     const { data } = await useFetch('http://localhost:3000/check_in_logs',{
       method: 'POST',
       body: {
-        user_id: userId,
-        shop_id: shopId
+        user_id: user.user.id,
+        shop_id: shopId,
+        checked_at: checkedAt
       }
     })
 

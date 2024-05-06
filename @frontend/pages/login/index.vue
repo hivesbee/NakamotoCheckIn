@@ -21,11 +21,8 @@
 
   const { signIn } = useAuth()
 
-  // console.log(status.value)
-  // console.log(data.value.user)
-
   const login = async () => {
-    signIn('google')
+    const result = await signIn('google')
   }
 </script>
 

@@ -36,8 +36,13 @@ class CheckInLogsController < ApplicationController
 
   # POST /check_in_logs
   def create
+    checked_at = params[:checked_at] ? params[:checked_at] : DateTime.current
     
-    @check_in_log = CheckInLog.new(check_in_log_create_params)
+    @check_in_log = CheckInLog.new(
+      user_id: params[:user_id],
+      shop_id: params[:shop_id],
+      checked_at: checked_at
+    )
 
     if @check_in_log.save
       render json: @check_in_log, status: :created, location: @check_in_log
@@ -73,7 +78,7 @@ class CheckInLogsController < ApplicationController
     end
 
     def check_in_log_create_params
-      params.require(:check_in_log).permit([:user_id, :shop_id]).merge(checked_at: DateTime.current)
+      params.require(:check_in_log).permit([:user_id, :shop_id, :checked_at])
     end
 
     # def check_in_log_destroy_params

@@ -3,7 +3,7 @@ class ShopsController < ApplicationController
 
   # GET /shops
   def index
-    @shops = Shop.all
+    @shops = Shop.all.order([:prefecture_order, :shop_order])
 
     render json: @shops
   end

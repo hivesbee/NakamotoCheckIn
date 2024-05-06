@@ -3,11 +3,20 @@ export default defineNuxtConfig({
   alias: {
     '*': 'types/*'
   },
+  components: {
+    dirs: [{
+        path: '~/components',
+        ignore: ['pages/**/*.vue'],
+      }
+    ]
+  },
   modules: [
     '@pinia/nuxt',
     '@pinia-plugin-persistedstate/nuxt',
+    '@nuxtjs/svg-sprite',
     '@nuxtjs/tailwindcss',
-    '@sidebase/nuxt-auth'
+    '@sidebase/nuxt-auth',
+    '@vueuse/nuxt'
   ],
   // routeRules: {
   //   '/api/**': {
@@ -16,6 +25,13 @@ export default defineNuxtConfig({
   //     headers: { 'access-control-allow-methods': '*' }
   //   }
   // },
+  runtimeConfig: {
+    googleClientId: '',
+    googleClientSecret: ''
+  },
+
+  // third party modules setting
+  // @sidebase/nuxt-auth
   auth: {
     globalAppMiddleware: true,
     provider: {
@@ -25,10 +41,12 @@ export default defineNuxtConfig({
         // }
     }
   },
-  runtimeConfig: {
-    googleClientId: '',
-    googleClientSecret: ''
+  // @nuxtjs.svg-sprite
+  svgSprite: {
+    input: '~/assets/img/icons/svg',
+    output: '~/assets/img/icons/gen/'
   },
+  
 
   // development settings
   devtools: { enabled: true },

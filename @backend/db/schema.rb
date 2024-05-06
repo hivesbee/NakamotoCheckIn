@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_29_084022) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_04_081126) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -44,6 +44,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_29_084022) do
     t.string "address"
     t.string "tel"
     t.string "business_hour"
+    t.integer "shop_order"
+    t.string "prefecture"
+    t.integer "prefecture_order"
+    t.string "regular_holiday"
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
