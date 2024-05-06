@@ -39,7 +39,8 @@ export default defineNuxtConfig({
         // pages: {
         //   login: '/signin'
         // }
-    }
+    },
+    baseURL: process.env.AUTH_ORIGIN
   },
   // @nuxtjs.svg-sprite
   svgSprite: {
