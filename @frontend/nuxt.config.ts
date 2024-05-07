@@ -26,6 +26,7 @@ export default defineNuxtConfig({
   //   }
   // },
   runtimeConfig: {
+    authSecret: '',
     googleClientId: '',
     googleClientSecret: ''
   },
