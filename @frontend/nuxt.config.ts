@@ -1,6 +1,4 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-
-const runtimeConfig = useRuntimeConfig()
 export default defineNuxtConfig({
   alias: {
     '*': 'types/*'
