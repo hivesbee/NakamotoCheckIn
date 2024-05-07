@@ -1,4 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+
+const runtimeConfig = useRuntimeConfig()
 export default defineNuxtConfig({
   alias: {
     '*': 'types/*'
@@ -28,7 +30,8 @@ export default defineNuxtConfig({
   runtimeConfig: {
     authSecret: '',
     googleClientId: '',
-    googleClientSecret: ''
+    googleClientSecret: '',
+    authOrigin: ''
   },
 
   // third party modules setting
@@ -41,7 +44,7 @@ export default defineNuxtConfig({
         //   login: '/signin'
         // }
     },
-    baseURL: process.env.AUTH_ORIGIN
+    baseURL: process.env.NUXT_AUTH_URL
   },
   // @nuxtjs.svg-sprite
   svgSprite: {
