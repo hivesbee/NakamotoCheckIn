@@ -35,14 +35,14 @@ export default defineNuxtConfig({
   // third party modules setting
   // @sidebase/nuxt-auth
   auth: {
+    baseURL: process.env.NUXT_AUTH_URL,
     globalAppMiddleware: true,
     provider: {
         type: 'authjs',
         // pages: {
         //   login: '/signin'
         // }
-    },
-    baseURL: process.env.NUXT_AUTH_URL
+    }
   },
   // @nuxtjs.svg-sprite
   svgSprite: {
@@ -55,9 +55,9 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   devServer: {
     port: 8000,
-    https: {
-      key: './cert/server.key',
-      cert: './cert/server.crt'
-    }
+    // https: {
+    //   key: './cert/server.key',
+    //   cert: './cert/server.crt'
+    // }
   }
 })
