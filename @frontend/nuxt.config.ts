@@ -54,6 +54,10 @@ export default defineNuxtConfig({
   // development settings
   devtools: { enabled: true },
   devServer: {
-    port: 8000
+    port: 8000,
+    https: {
+      key: './cert/server.key',
+      cert: './cert/server.crt'
+    }
   }
 })
