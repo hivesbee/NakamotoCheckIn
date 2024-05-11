@@ -42,8 +42,8 @@
 <script setup lang="ts">
   import { formatInTimeZone, fromZonedTime } from 'date-fns-tz'
 
-  const shop = useShop()
-  const track = useTrack()
+  const shop = useShopStore()
+  const track = useTrackStore()
 
   const checkedAt = ref()
   const selectedShop = ref<Shop>()

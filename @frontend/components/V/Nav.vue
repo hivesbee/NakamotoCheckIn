@@ -26,7 +26,7 @@
 
 <script setup lang="ts">
   const route = useRoute()
-  const { user } = useUser()
+  const { user } = useUserStore()
 
   const trackClass = computed(() => ({
     'vNav_link_track': true,

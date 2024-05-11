@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-  const shop = useShop()
+  const shop = useShopStore()
 
   try {
     await shop.fetch()

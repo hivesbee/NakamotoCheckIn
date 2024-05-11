@@ -3,7 +3,7 @@ import { jwtDecode } from 'jwt-decode'
 
 import { type Session, type DefaultSession } from 'next-auth'
 
-export const useUser = defineStore('user', () => {
+export const useUserStore = defineStore('user', () => {
   const user = ref()
 
   const fetch = async (email: User['email']) => {

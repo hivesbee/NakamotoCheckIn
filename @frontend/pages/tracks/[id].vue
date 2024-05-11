@@ -24,7 +24,7 @@
 
 <script setup lang="ts">
   const route = useRoute()
-  const track = useTrack()
+  const track = useTrackStore()
 
   const id = Array.isArray(route.params.id) ? route.params.id[0] : route.params.id
   console.log(id)

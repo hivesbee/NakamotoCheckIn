@@ -10,11 +10,12 @@
   import SectionCheckInAuto from '~/components/pages/tracks/SectionCheckInAuto.vue'
   import SectionCheckInManual from '~/components/pages/tracks/SectionCheckInManual.vue'
 
+
   const { data } = useAuth()
 
-  const shop = useShop()
-  const track = useTrack()
-  const user = useUser()
+  const shop = useShopStore()
+  const track = useTrackStore()
+  const user = useUserStore()
 
   await shop.fetch()
 

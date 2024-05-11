@@ -1,8 +1,8 @@
 
-import { useUser } from './user'
+import { useUser } from './userStore'
 
-export const useTrack = defineStore('track', () => {
-  const user = useUser()
+export const useTrackStore = defineStore('track', () => {
+  const user = useUserStore()
 
   const tracks = ref<CheckInLogDetail[]>([])
 
@@ -22,7 +22,7 @@ export const useTrack = defineStore('track', () => {
   }
 
   const checkIn = async (shopId: Shop['id'], checkedAt?: Track['checked_at']) => {
-    const user = useUser()
+    const user = useUserStore()
 
     if (user.user === null) {
       throw new Error('User not found.')

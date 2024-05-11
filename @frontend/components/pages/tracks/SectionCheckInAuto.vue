@@ -30,9 +30,9 @@
 <script setup lang="ts">
   import { Geodesic } from 'geographiclib-geodesic'
 
-  const shop = useShop()
-  const track = useTrack()
-  const user = useUser()
+  const shop = useShopStore()
+  const track = useTrackStore()
+  const user = useUserStore()
 
   const nearestShop = ref<Shop | null>(null)
   const distance = ref<number | null>(null)

@@ -15,9 +15,9 @@
 
   const { signOut } = useAuth()
 
-  const shop = useShop()
-  const track = useTrack()
-  const user = useUser()
+  const shop = useShopStore()
+  const track = useTrackStore()
+  const user = useUserStore()
   await shop.fetch()
   await track.fetch(user.user.id)
 

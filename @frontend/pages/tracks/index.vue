@@ -13,9 +13,9 @@
   // NOTE: 仮置き 最初に到達するページのため
   //       将来的にはログイン処理中に実装
   const { data } = useAuth()
-  const shop = useShop()
-  const user = useUser()
-  const track = useTrack()
+  const shop = useShopStore()
+  const user = useUserStore()
+  const track = useTrackStore()
 
   if (!data.value?.user?.email || !data.value.user.name) {
     throw new Error('authenticated email does not found.')

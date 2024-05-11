@@ -1,5 +1,5 @@
 
-export const useShop = defineStore('shop', () => {
+export const useShopStore = defineStore('shop', () => {
   const shops = ref<Shop[]>([])
 
   const fetch = async () => {
