@@ -1,15 +1,15 @@
-export const useShop = defineStore('shop', () => {
+const useShopStore = defineStore('shop', () => {
   const runtimeConfig = useRuntimeConfig()
+  const baseURL = runtimeConfig.public.apiBaseUrl as string
 
   const shops = ref<Shop[]>([])
-  const baseURL = runtimeConfig.public.apiBaseUrl as string
 
   const fetch = async () => {
     const { data } = await useFetch<Shop[]>('/shops',{
       baseURL
     })
 
-    if (!Array.isArray(data.value) || !data.value) {
+    if (!Array.isArray(data.value)) {
       throw new Error ('shops not found')
     }
 
@@ -23,3 +23,5 @@ export const useShop = defineStore('shop', () => {
 }, {
   persist: true
 })
+
+export { useShopStore }

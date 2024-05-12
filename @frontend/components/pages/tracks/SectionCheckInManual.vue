@@ -22,7 +22,7 @@
           </span>
           <select class="sectionCheckInManual_select" v-model="selectedShop">
             <option disabled value="null">店舗名を選んでください</option>
-            <template v-for="s in shop.shops" :key="s.id">
+            <template v-for="s in shopStore.shops" :key="s.id">
               <option :value="s">
                 {{ s.name }}
               </option>
@@ -42,8 +42,8 @@
 <script setup lang="ts">
   import { formatInTimeZone, fromZonedTime } from 'date-fns-tz'
 
-  const shop = useShop()
-  const track = useTrack()
+  const shopStore = useShopStore()
+  const trackStore = useTrackStore()
 
   const checkedAt = ref()
   const selectedShop = ref<Shop>()
@@ -57,7 +57,7 @@
     const formattedUtcTime = formatInTimeZone(utcTime, 'UTC', 'yyyy-MM-dd HH:mm:ss.TTTTTT')
 
     try {
-      await track.checkIn(selectedShop.value.id, formattedUtcTime)
+      await trackStore.checkIn(selectedShop.value.id, formattedUtcTime)
     } catch {
       // catch error
     }

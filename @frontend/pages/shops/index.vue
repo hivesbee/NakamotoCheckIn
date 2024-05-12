@@ -1,14 +1,14 @@
 <template>
   <NuxtLayout name="authenticated">
-    <shop-list :shops="shop.shops" />
+    <shop-list :shops="shopStore.shops" />
   </NuxtLayout>
 </template>
 
 <script setup lang="ts">
-  const shop = useShop()
+  const shopStore = useShopStore()
 
   try {
-    await shop.fetch()
+    await shopStore.fetch()
   } catch {
     // catch error
   }

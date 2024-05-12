@@ -12,15 +12,14 @@
 
   const { data } = useAuth()
 
-  const shop = useShop()
-  const track = useTrack()
-  const user = useUser()
+  const shopStore = useShopStore()
+  const userStore = useUserStore()
 
-  await shop.fetch()
+  await shopStore.fetch()
 
   const email = data.value?.user?.email ?? null 
   if (email) {
-    await user.fetch(email)
+    await userStore.fetch(email)
   }
 </script>
 

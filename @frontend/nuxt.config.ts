@@ -1,4 +1,3 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   alias: {
     '*': 'types/*'
@@ -18,13 +17,6 @@ export default defineNuxtConfig({
     '@sidebase/nuxt-auth',
     '@vueuse/nuxt'
   ],
-  // routeRules: {
-  //   '/api/**': {
-  //     cors: true,
-  //     proxy: 'http://localhost:3000/**',
-  //     headers: { 'access-control-allow-methods': '*' }
-  //   }
-  // },
   runtimeConfig: {
     googleClientId: '',
     googleClientSecret: '',

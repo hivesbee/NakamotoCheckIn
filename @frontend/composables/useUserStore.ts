@@ -3,11 +3,15 @@ import { jwtDecode } from 'jwt-decode'
 
 import { type Session, type DefaultSession } from 'next-auth'
 
-export const useUser = defineStore('user', () => {
-  const user = ref()
+const useUserStore = defineStore('user', () => {
+  const runtimeConfig = useRuntimeConfig()
+  const baseURL = runtimeConfig.public.apiBaseUrl as string
+
+  const user = ref<User | null>(null)
 
   const fetch = async (email: User['email']) => {
-    const { data } = await useFetch('http://localhost:3000/users', {
+    const { data } = await useFetch('/users', {
+      baseURL,
       params: {
         email
       }
@@ -33,7 +37,8 @@ export const useUser = defineStore('user', () => {
 
     console.log(token)
 
-    const { data } = await useFetch('http://localhost:3000/users', {
+    const { data } = await useFetch<User>('/users', {
+      baseURL,
       params: {
         email: token.email
       }
@@ -52,8 +57,9 @@ export const useUser = defineStore('user', () => {
 
   // FIXME: 未検証
   const signUp = async (name: string, email: string) => {
-    const { data } = await useFetch('http://localhost:3000/users',{
+    const { data } = await useFetch<User>('/users',{
       method: 'POST',
+      baseURL,
       body: {
         email,
         name
@@ -76,3 +82,5 @@ export const useUser = defineStore('user', () => {
 }, {
   persist: true
 })
+
+export { useUserStore }

@@ -30,9 +30,9 @@
 <script setup lang="ts">
   import { Geodesic } from 'geographiclib-geodesic'
 
-  const shop = useShop()
-  const track = useTrack()
-  const user = useUser()
+  const shopStore = useShopStore()
+  const trackStore = useTrackStore()
+  const userStore = useUserStore()
 
   const nearestShop = ref<Shop | null>(null)
   const distance = ref<number | null>(null)
@@ -44,12 +44,12 @@
       return
     }
 
-    const geod = Geodesic.WGS84
+    const geodesic = Geodesic.WGS84
 
-    const { shop: s, distance: d } = shop.shops.map((s) => ({
+    const { shop: s, distance: d } = shopStore.shops.map((s: Shop) => ({
       shop: { ...s },
-      distance: geod.Inverse(p.coords.latitude, p.coords.longitude, s.latitude, s.longitude).s12 ?? Infinity
-    })).reduce((a, b) => Math.min(a.distance, b.distance) === a.distance ? a : b)
+      distance: geodesic.Inverse(p.coords.latitude, p.coords.longitude, s.latitude, s.longitude).s12 ?? Infinity
+    })).reduce((a: Shop & { distance: number}, b: Shop & { distance: number}) => Math.min(a.distance, b.distance) === a.distance ? a : b)
 
     if (d === Infinity) {
       return
@@ -65,7 +65,7 @@
     }
 
     try {
-      await track.checkIn(nearestShop.value.id)
+      await trackStore.checkIn(nearestShop.value.id)
     } catch {
       // catch error
     }

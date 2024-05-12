@@ -1,13 +1,17 @@
 
-import { useUser } from './user'
+import { useUser } from './useUserStore'
 
-export const useTrack = defineStore('track', () => {
-  const user = useUser()
+const useTrackStore = defineStore('track', () => {
+  const runtimeConfig = useRuntimeConfig()
+  const baseURL = runtimeConfig.public.apiBaseUrl as string
+
+  const userStore = useUserStore()
 
   const tracks = ref<CheckInLogDetail[]>([])
 
   const fetch = async (id: User['id']) => {
-    const { data } = await useFetch<CheckInLogDetail[]>('http://localhost:3000/check_in_logs',{
+    const { data } = await useFetch<CheckInLogDetail[]>('/check_in_logs',{
+      baseURL,
       params: {
         embed: 'shop',
         user_id: id
@@ -22,16 +26,17 @@ export const useTrack = defineStore('track', () => {
   }
 
   const checkIn = async (shopId: Shop['id'], checkedAt?: Track['checked_at']) => {
-    const user = useUser()
+    const userStore = useUserStore()
 
-    if (user.user === null) {
+    if (userStore.user === null) {
       throw new Error('User not found.')
     }
 
-    const { data } = await useFetch('http://localhost:3000/check_in_logs',{
+    const { data } = await useFetch('/check_in_logs',{
       method: 'POST',
+      baseURL,
       body: {
-        user_id: user.user.id,
+        user_id: userStore.user.id,
         shop_id: shopId,
         checked_at: checkedAt
       }
@@ -41,8 +46,9 @@ export const useTrack = defineStore('track', () => {
   }
 
   const remove = async (id: Track['id']) => {
-    const { data } = await useFetch(`http://localhost:3000/check_in_logs/${id}`, {
-      method: 'DELETE'
+    const { data } = await useFetch(`/check_in_logs/${id}`, {
+      method: 'DELETE',
+      baseURL
     })
 
     // tracks.value = tracks.value.filter((t) => t.id !== id)
@@ -58,3 +64,5 @@ export const useTrack = defineStore('track', () => {
 }, {
   persist: true
 })
+
+export { useTrackStore }

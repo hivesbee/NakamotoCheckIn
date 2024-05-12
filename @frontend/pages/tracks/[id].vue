@@ -24,12 +24,12 @@
 
 <script setup lang="ts">
   const route = useRoute()
-  const track = useTrack()
+  const trackStore = useTrackStore()
 
   const id = Array.isArray(route.params.id) ? route.params.id[0] : route.params.id
   console.log(id)
 
-  const detailTrack = track.tracks.find((t) => t.id === id)
+  const detailTrack = trackStore.tracks.find((t) => t.id === id)
 
   const deleteTrack = async () => {
     if (!window.confirm('削除してよろしいですか？')) {
@@ -37,7 +37,7 @@
     }
 
     try {
-      await track.remove(id)
+      await trackStore.remove(id)
       navigateTo('/tracks')
     } catch {
       // catch Error

@@ -15,15 +15,15 @@
 
   const { signOut } = useAuth()
 
-  const shop = useShop()
-  const track = useTrack()
-  const user = useUser()
-  await shop.fetch()
-  await track.fetch(user.user.id)
+  const shopStore = useShopStore()
+  const trackStore = useTrackStore()
+  const userStore = useUserStore()
+  await shopStore.fetch()
+  await trackStore.fetch(userStore.user.id)
 
-  const trackIds = [ ...new Set(track.tracks.map(({shop_id}) => shop_id))]
+  const trackIds = [ ...new Set(trackStore.tracks.map(({shop_id}) => shop_id))]
 
-  const checkedShops = computed<CheckedShops[]>(() => shop.shops.map((s) => ({
+  const checkedShops = computed<CheckedShops[]>(() => shopStore.shops.map((s) => ({
     ...s,
     checked: trackIds.includes(s.id)
   })))
