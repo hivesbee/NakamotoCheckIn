@@ -27,7 +27,10 @@ export default defineNuxtConfig({
   // },
   runtimeConfig: {
     googleClientId: '',
-    googleClientSecret: ''
+    googleClientSecret: '',
+    public: {
+      apiBaseUrl: ''
+    }
   },
 
   // third party modules setting
