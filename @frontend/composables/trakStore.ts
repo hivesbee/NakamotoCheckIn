@@ -1,16 +1,16 @@
-
-import { useUser } from './userStore'
-
 export const useTrackStore = defineStore('track', () => {
-  const user = useUserStore()
+  const userStore = useUserStore()
 
   const tracks = ref<CheckInLogDetail[]>([])
 
   const fetch = async (id: User['id']) => {
-    const { data } = await useFetch<CheckInLogDetail[]>('http://localhost:3000/check_in_logs',{
+    const config = useRuntimeConfig()
+
+    const { data } = await useFetch<CheckInLogDetail[]>('/check_in_logs',{
+      baseURL: config.public.apiBaseURL,
       params: {
         embed: 'shop',
-        user_id: id
+        user_id: userStore.user.id
       }
     })
  
@@ -28,7 +28,7 @@ export const useTrackStore = defineStore('track', () => {
       throw new Error('User not found.')
     }
 
-    const { data } = await useFetch('http://localhost:3000/check_in_logs',{
+    const { data } = await useFetch('http://localhost:3000/check_in_logs', {
       method: 'POST',
       body: {
         user_id: user.user.id,

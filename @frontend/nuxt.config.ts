@@ -29,7 +29,10 @@ export default defineNuxtConfig({
     authSecret: '',
     googleClientId: '',
     googleClientSecret: '',
-    authOrigin: ''
+    authOrigin: '',
+    public: {
+      apiBaseURL: process.env.NUXT_PUBLIC_API_BASE_URL
+    }
   },
 
   // third party modules setting

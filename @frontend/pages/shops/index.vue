@@ -1,15 +1,20 @@
 <template>
   <NuxtLayout name="authenticated">
-    <shop-list :shops="shop.shops" />
+    <client-only>
+    <shop-list :shops="shopStore.shops" />
+      </client-only>
   </NuxtLayout>
 </template>
 
 <script setup lang="ts">
-  const shop = useShopStore()
+  const shopStore = useShopStore()
 
-  try {
-    await shop.fetch()
-  } catch {
-    // catch error
-  }
+  onMounted(async () => {
+    try {
+      await shopStore.fetch()
+    } catch (e) {
+      // catch error
+      console.error(e)
+    }
+  })
 </script>
