@@ -3,9 +3,19 @@ class UsersController < ApplicationController
 
   # GET /users
   def index
-    @users = User.all
 
-    render json: @users
+    if params[:email]
+      user = User.where(email: params[:email]).take
+      p user
+      render json: user, status: :ok
+      return
+    end
+
+
+
+    users = User.all
+
+    render json: users
   end
 
   # GET /users/1
