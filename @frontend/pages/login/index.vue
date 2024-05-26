@@ -3,7 +3,7 @@
     <div class="login_main">
       <p class="login_note">
         ログイン、または新規登録には
-        <br />
+        <br>
         google ログインが必要です
       </p>
       <google-button @click="login()" />
@@ -12,18 +12,18 @@
 </template>
 
 <script setup lang="ts">
-  definePageMeta({
-    auth: {
-      unauthenticatedOnly: true,
-      navigateAuthenticatedTo: '/tracks'
-    }
-  })
-
-  const { signIn } = useAuth()
-
-  const login = async () => {
-    const result = await signIn('google')
+definePageMeta({
+  auth: {
+    unauthenticatedOnly: true,
+    navigateAuthenticatedTo: '/login/check'
   }
+})
+
+const auth = useAuth()
+
+const login = async () => {
+  await auth.signIn('google')
+}
 </script>
 
 <style scoped>
