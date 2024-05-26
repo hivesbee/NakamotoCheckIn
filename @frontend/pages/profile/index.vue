@@ -1,36 +1,27 @@
 <template>
   <NuxtLayout name="authenticated">
     <section-geolocation class="sectionGeolocation" />
-    <hr />  
+    <hr>
     <section-shop-tour :shops="checkedShops" />
-    <hr />
+    <hr>
     <section-logout class="sectionLogout" />
   </NuxtLayout>
 </template>
 
 <script setup lang="ts">
-  import SectionGeolocation from '~/components/pages/profile/SectionGeolocation.vue'
-  import SectionShopTour from '~/components/pages/profile/SectionShopTour.vue'
-  import SectionLogout from '~/components/pages/profile/SectionLogout.vue'
+import SectionGeolocation from '~/components/pages/profile/SectionGeolocation.vue'
+import SectionShopTour from '~/components/pages/profile/SectionShopTour.vue'
+import SectionLogout from '~/components/pages/profile/SectionLogout.vue'
 
-  const { signOut } = useAuth()
+const shop = useShopStore()
+const track = useTrackStore()
 
-  const shop = useShopStore()
-  const track = useTrackStore()
-  const user = useUserStore()
-  await shop.fetch()
-  await track.fetch(user.user.id)
+const trackIds = [...new Set(track.tracks.map(({ shop_id }) => shop_id))]
 
-  const trackIds = [ ...new Set(track.tracks.map(({shop_id}) => shop_id))]
-
-  const checkedShops = computed<CheckedShops[]>(() => shop.shops.map((s) => ({
-    ...s,
-    checked: trackIds.includes(s.id)
-  })))
-
-  const logout = () => {
-    signOut()
-  }
+const checkedShops = computed<CheckedShops[]>(() => shop.shops.map(s => ({
+  ...s,
+  checked: trackIds.includes(s.id)
+})))
 </script>
 
 <style scoped>
