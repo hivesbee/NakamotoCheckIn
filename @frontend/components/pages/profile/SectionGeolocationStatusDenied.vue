@@ -1,18 +1,18 @@
 <template>
   <section-geolocation-status>
-    <template v-slot:message>
+    <template #message>
       位置情報が有効化されていません。
-      <br />
+      <br>
       ブラウザの設定から有効化してください。
     </template>
-    <template v-slot:aside>
+    <template #aside>
       ※ 位置情報が有効ではないと、
-      <br />
+      <br>
       現在位置からのチェックインができません。
     </template>
   </section-geolocation-status>
 </template>
 
 <script setup lang="ts">
-  import SectionGeolocationStatus from './SectionGeolocationStatus.vue'
+import SectionGeolocationStatus from './SectionGeolocationStatus.vue'
 </script>

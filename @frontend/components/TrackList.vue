@@ -1,19 +1,25 @@
 <template>
   <ul class="trackList">
-    <li v-for="track in props.tracks" :key="track.id">
+    <li
+      v-for="track in props.tracks"
+      :key="track.id"
+    >
       <nuxt-link :to="detailUrl(track.id)">
-        <track-card class="trackList_card" :track="track" />
+        <track-card
+          class="trackList_card"
+          :track="track"
+        />
       </nuxt-link>
     </li>
   </ul>
 </template>
 
 <script setup lang="ts">
-  const props = defineProps<{
-    tracks: Track[]
-  }>()
+const props = defineProps<{
+  tracks: Track[]
+}>()
 
-  const detailUrl = (id: Track['id']) => `/tracks/${id}`
+const detailUrl = (id: Track['id']) => `/tracks/${id}`
 </script>
 
 <style scoped>

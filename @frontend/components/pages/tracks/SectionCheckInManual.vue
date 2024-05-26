@@ -1,6 +1,6 @@
 <template>
   <v-section>
-    <template v-slot:heading>
+    <template #heading>
       <svg-icon name="touch-app" />
       手動でチェックイン
       <p class="sectionCheckInManual_note">
@@ -8,21 +8,34 @@
       </p>
     </template>
 
-    <template v-slot:body>
+    <template #body>
       <form class="sectionCheckInManual_form">
         <label class="sectionCheckInManual_form_item">
           <span class="sectionCheckInManual_label_text">
             チェックイン日付
           </span>
-          <input class="sectionCheckInManual_input" type="datetime-local" v-model="checkedAt" />
+          <input
+            v-model="checkedAt"
+            class="sectionCheckInManual_input"
+            type="datetime-local"
+          >
         </label>
         <label class="sectionCheckInManual_form_item">
           <span class="sectionCheckInManual_label_text">
             店舗名
           </span>
-          <select class="sectionCheckInManual_select" v-model="selectedShop">
-            <option disabled value="null">店舗名を選んでください</option>
-            <template v-for="s in shop.shops" :key="s.id">
+          <select
+            v-model="selectedShop"
+            class="sectionCheckInManual_select"
+          >
+            <option
+              disabled
+              value="null"
+            >店舗名を選んでください</option>
+            <template
+              v-for="s in shop.shops"
+              :key="s.id"
+            >
               <option :value="s">
                 {{ s.name }}
               </option>
@@ -30,8 +43,15 @@
           </select>
         </label>
 
-        <button class="sectionCheckInManual_checkIn" type="button" @click="checkIn()">
-          <svg-icon class="sectionCheckInManual_checkIn_icon" name="pin-drop" />
+        <button
+          class="sectionCheckInManual_checkIn"
+          type="button"
+          @click="checkIn()"
+        >
+          <svg-icon
+            class="sectionCheckInManual_checkIn_icon"
+            name="pin-drop"
+          />
           チェックイン
         </button>
       </form>
@@ -40,30 +60,31 @@
 </template>
 
 <script setup lang="ts">
-  import { formatInTimeZone, fromZonedTime } from 'date-fns-tz'
+import { formatInTimeZone, fromZonedTime } from 'date-fns-tz'
 
-  const shop = useShopStore()
-  const track = useTrackStore()
+const shop = useShopStore()
+const track = useTrackStore()
 
-  const checkedAt = ref()
-  const selectedShop = ref<Shop>()
+const checkedAt = ref()
+const selectedShop = ref<Shop>()
 
-  const checkIn = async () => {
-    if (!selectedShop.value || !checkedAt.value) {
-      return
-    }
-
-    const utcTime = fromZonedTime(checkedAt.value, 'Asia/Tokyo')
-    const formattedUtcTime = formatInTimeZone(utcTime, 'UTC', 'yyyy-MM-dd HH:mm:ss.TTTTTT')
-
-    try {
-      await track.checkIn(selectedShop.value.id, formattedUtcTime)
-    } catch {
-      // catch error
-    }
-
-    navigateTo('/tracks')
+const checkIn = async () => {
+  if (!selectedShop.value || !checkedAt.value) {
+    return
   }
+
+  const utcTime = fromZonedTime(checkedAt.value, 'Asia/Tokyo')
+  const formattedUtcTime = formatInTimeZone(utcTime, 'UTC', 'yyyy-MM-dd HH:mm:ss.TTTTTT')
+
+  try {
+    await track.checkIn(selectedShop.value.id, formattedUtcTime)
+  }
+  catch {
+    // catch error
+  }
+
+  navigateTo('/tracks')
+}
 </script>
 
 <style scoped>
@@ -107,7 +128,7 @@
     @apply border border-slate-300;
     @apply rounded;
   }
-  
+
   .sectionCheckInManual_checkIn {
     @apply flex justify-center items-center;
     @apply w-6/12;

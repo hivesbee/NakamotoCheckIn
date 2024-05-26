@@ -1,14 +1,17 @@
 <template>
   <v-section>
-    <template v-slot:heading>
+    <template #heading>
       <svg-icon name="near-me" />
       一番近い店舗にチェックイン
     </template>
 
-    <template v-slot:body>
+    <template #body>
       <client-only>
         <template v-if="nearestShop">
-          <shop-card class="sectionCheckInAuto_card" :shop="nearestShop" />
+          <shop-card
+            class="sectionCheckInAuto_card"
+            :shop="nearestShop"
+          />
         </template>
         <template v-else>
           <p class="sectionCheckInAuto_searchingMessage">
@@ -19,8 +22,15 @@
           {{ distanceMessage }}
         </p>
       </client-only>
-      <button class="sectionCheckInAuto_checkIn" type="button" @click="checkIn">
-        <svg-icon class="sectionCheckInAuto_checkIn_icon" name="pin-drop" />
+      <button
+        class="sectionCheckInAuto_checkIn"
+        type="button"
+        @click="checkIn"
+      >
+        <svg-icon
+          class="sectionCheckInAuto_checkIn_icon"
+          name="pin-drop"
+        />
         チェックイン
       </button>
     </template>
@@ -28,56 +38,56 @@
 </template>
 
 <script setup lang="ts">
-  import { Geodesic } from 'geographiclib-geodesic'
+import { Geodesic } from 'geographiclib-geodesic'
 
-  const shop = useShopStore()
-  const track = useTrackStore()
-  const user = useUserStore()
+const shop = useShopStore()
+const track = useTrackStore()
 
-  const nearestShop = ref<Shop | null>(null)
-  const distance = ref<number | null>(null)
-  const distanceMessage = computed(() => distance.value === null ? '' : `店舗まで${distance.value.toFixed(2)}m`)
+const nearestShop = ref<Shop | null>(null)
+const distance = ref<number | null>(null)
+const distanceMessage = computed(() => distance.value === null ? '' : `店舗まで${distance.value.toFixed(2)}m`)
 
-  onMounted(async () => {
-    const p = await _getCoords()
-    if (!p) {
-      return
-    }
-
-    const geod = Geodesic.WGS84
-
-    const { shop: s, distance: d } = shop.shops.map((s) => ({
-      shop: { ...s },
-      distance: geod.Inverse(p.coords.latitude, p.coords.longitude, s.latitude, s.longitude).s12 ?? Infinity
-    })).reduce((a, b) => Math.min(a.distance, b.distance) === a.distance ? a : b)
-
-    if (d === Infinity) {
-      return
-    }
-
-    nearestShop.value = s
-    distance.value = d
-  })
-
-  const checkIn = async () => {
-    if (nearestShop.value === null) {
-      return
-    }
-
-    try {
-      await track.checkIn(nearestShop.value.id)
-    } catch {
-      // catch error
-    }
-
-    navigateTo('/tracks')
+onMounted(async () => {
+  const p = await _getCoords()
+  if (!p) {
+    return
   }
 
-  const _getCoords = () => new Promise(
-    (resolve: (value?: GeolocationPosition) => void, reject: (reason?: GeolocationPositionError) => void) => {
-      navigator.geolocation.getCurrentPosition(resolve, reject)
-    }
-  )
+  const geod = Geodesic.WGS84
+
+  const { shop: s, distance: d } = shop.shops.map(s => ({
+    shop: { ...s },
+    distance: geod.Inverse(p.coords.latitude, p.coords.longitude, s.latitude, s.longitude).s12 ?? Infinity
+  })).reduce((a, b) => Math.min(a.distance, b.distance) === a.distance ? a : b)
+
+  if (d === Infinity) {
+    return
+  }
+
+  nearestShop.value = s
+  distance.value = d
+})
+
+const checkIn = async () => {
+  if (nearestShop.value === null) {
+    return
+  }
+
+  try {
+    await track.checkIn(nearestShop.value.id)
+  }
+  catch {
+    // catch error
+  }
+
+  navigateTo('/tracks')
+}
+
+const _getCoords = () => new Promise(
+  (resolve: (value?: GeolocationPosition) => void, reject: (reason?: GeolocationPositionError) => void) => {
+    navigator.geolocation.getCurrentPosition(resolve, reject)
+  }
+)
 </script>
 
 <style scoped>

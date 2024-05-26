@@ -1,10 +1,10 @@
 <template>
   <div class="sectionGeolocationStatus_container">
     <p class="sectionGeolocationStatus_message">
-      <slot name="message"></slot>
+      <slot name="message" />
     </p>
     <aside class="sectionGeolocationStatus_aside">
-      <slot name="aside"></slot>
+      <slot name="aside" />
     </aside>
   </div>
 </template>

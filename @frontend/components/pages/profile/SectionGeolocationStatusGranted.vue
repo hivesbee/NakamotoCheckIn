@@ -1,19 +1,22 @@
 <template>
   <section-geolocation-status>
-    <template v-slot:message>
-      <svg-icon class="sectionGeolocationStatusGranted_message_icon" name="task-alt" />
+    <template #message>
+      <svg-icon
+        class="sectionGeolocationStatusGranted_message_icon"
+        name="task-alt"
+      />
       位置情報が有効化されています。
     </template>
-    <template v-slot:aside>
+    <template #aside>
       ※ 位置情報の設定を変更するには、
-      <br />
+      <br>
       ブラウザの設定から変更してください。
     </template>
   </section-geolocation-status>
 </template>
 
 <script setup lang="ts">
-  import SectionGeolocationStatus from './SectionGeolocationStatus.vue'
+import SectionGeolocationStatus from './SectionGeolocationStatus.vue'
 </script>
 
 <style scoped>

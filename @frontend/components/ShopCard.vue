@@ -14,13 +14,13 @@
 </template>
 
 <script setup lang="ts">
-  const props = defineProps<{
-    shop: Shop
-  }>()
+const props = defineProps<{
+  shop: Shop
+}>()
 
-  const shopImg = computed(() => {
-    return `url("/img/shops/${props.shop.id}.jpg")`
-  })
+const shopImg = computed(() => {
+  return `url("/img/shops/${props.shop.id}.jpg")`
+})
 </script>
 
 <style scoped>

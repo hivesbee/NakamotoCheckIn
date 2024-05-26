@@ -1,12 +1,16 @@
 <template>
   <v-section>
-    <template v-slot:heading>
+    <template #heading>
       <svg-icon name="logout" />
       ログアウト
     </template>
 
-    <template v-slot:body>
-      <button class="sectionLogout_logout" type="button" @click="logout()">
+    <template #body>
+      <button
+        class="sectionLogout_logout"
+        type="button"
+        @click="logout()"
+      >
         ログアウト
       </button>
     </template>
@@ -14,11 +18,16 @@
 </template>
 
 <script setup lang="ts">
-  const { signOut } = useAuth()
+const auth = useAuth()
 
-  const logout = () => {
-    signOut()
-  }
+const logout = () => {
+  // ローカルのデータを削除
+  document.cookie = 'userStore=; max-age=0'
+  localStorage.removeItem('trackStore')
+  localStorage.removeItem('shopStore')
+
+  auth.signOut()
+}
 </script>
 
 <style scoped>

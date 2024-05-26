@@ -1,14 +1,17 @@
 <template>
   <v-section>
-    <template v-slot:heading>
+    <template #heading>
       <svg-icon name="map" />
       店舗めぐりチェック
     </template>
 
-    <template v-slot:body>
+    <template #body>
       <client-only>
         <ul class="sectionShopTour_list">
-          <template v-for="shop in props.shops" :key="shop.id">
+          <template
+            v-for="shop in props.shops"
+            :key="shop.id"
+          >
             <section-shop-tour-card :shop="shop" />
           </template>
         </ul>
@@ -18,11 +21,11 @@
 </template>
 
 <script setup lang="ts">
-  import SectionShopTourCard from './SectionShopTourCard.vue'
+import SectionShopTourCard from './SectionShopTourCard.vue'
 
-  const props = defineProps<{
-    shops: CheckedShops[]
-  }>()
+const props = defineProps<{
+  shops: CheckedShops[]
+}>()
 </script>
 
 <style scoped>

@@ -1,49 +1,73 @@
 <template>
   <nav class="vNav">
     <div class="vNav_left">
-      <NuxtLink :class="trackClass" to="/tracks">
-        <svg-icon class="vNav_link_icon" name="footprint" />
+      <NuxtLink
+        :class="trackClass"
+        to="/tracks"
+      >
+        <svg-icon
+          class="vNav_link_icon"
+          name="footprint"
+        />
       </NuxtLink>
-      <NuxtLink :class="shopClass" to="/shops">
-        <svg-icon class="vNav_link_icon" name="store" />
+      <NuxtLink
+        :class="shopClass"
+        to="/shops"
+      >
+        <svg-icon
+          class="vNav_link_icon"
+          name="store"
+        />
       </NuxtLink>
     </div>
     <div class="vNav_right">
-      <NuxtLink :class="meClass" to="/profile">
+      <NuxtLink
+        :class="meClass"
+        to="/profile"
+      >
         <p class="vNav_link_text">
           <ClientOnly>
             {{ userName }}
           </ClientOnly>
         </p>
-        <svg-icon class="vNav_link_icon" name="person" />
+        <svg-icon
+          class="vNav_link_icon"
+          name="person"
+        />
       </NuxtLink>
     </div>
-    <NuxtLink class="vNav_checkIn" to="/tracks/new">
-      <svg-icon class="vNav_checkIn_icon" name="location-on" />
+    <NuxtLink
+      class="vNav_checkIn"
+      to="/tracks/new"
+    >
+      <svg-icon
+        class="vNav_checkIn_icon"
+        name="location-on"
+      />
     </NuxtLink>
   </nav>
 </template>
 
 <script setup lang="ts">
-  const route = useRoute()
-  const { user } = useUserStore()
+const route = useRoute()
+const { user } = useUserStore()
 
-  const trackClass = computed(() => ({
-    'vNav_link_track': true,
-    'vNav_link-active': route.path === '/tracks'
-  }))
+const trackClass = computed(() => ({
+  'vNav_link_track': true,
+  'vNav_link-active': route.path === '/tracks'
+}))
 
-  const shopClass = computed(() => ({
-    'vNav_link_shop': true,
-    'vNav_link-active': route.path.includes('/shops')
-  }))
+const shopClass = computed(() => ({
+  'vNav_link_shop': true,
+  'vNav_link-active': route.path.includes('/shops')
+}))
 
-  const meClass = computed(() => ({
-    'vNav_link_profile': true,
-    'vNav_link-active': route.path.includes('/profile')
-  }))
+const meClass = computed(() => ({
+  'vNav_link_profile': true,
+  'vNav_link-active': route.path.includes('/profile')
+}))
 
-  const userName = computed(() => user.name ? user.name : '')
+const userName = computed(() => user.name ? user.name : '')
 </script>
 
 <style scoped>

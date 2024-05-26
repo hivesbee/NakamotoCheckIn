@@ -10,7 +10,7 @@
       <br>
       <p class="trackCard_title">
         蒙古タンメン中本
-        <br />
+        <br>
         {{ track.shop_name }}
       </p>
     </div>
@@ -18,26 +18,26 @@
 </template>
 
 <script setup lang="ts">
-  import { isValid } from 'date-fns'
-  import { formatInTimeZone } from 'date-fns-tz'
+import { isValid } from 'date-fns'
+import { formatInTimeZone } from 'date-fns-tz'
 
-  const props = defineProps<{
-    track: Track
-  }>()
+const props = defineProps<{
+  track: Track
+}>()
 
-  const shopImg = computed(() => `url("/img/shops/${props.track.shop_id}.jpg")`)
+const shopImg = computed(() => `url("/img/shops/${props.track.shop_id}.jpg")`)
 
-  const formatedDate = computed(() => {
-    if (process.server) {
-      return
-    }
+const formatedDate = computed(() => {
+  if (import.meta.server) {
+    return
+  }
 
-    if (!props.track.checked_at || !isValid(new Date(props.track.checked_at))) {
-      return ''
-    }
+  if (!props.track.checked_at || !isValid(new Date(props.track.checked_at))) {
+    return ''
+  }
 
-    return formatInTimeZone(props.track.checked_at, 'Asia/Tokyo', 'yyyy/MM/dd: HH:mm')
-  })
+  return formatInTimeZone(props.track.checked_at, 'Asia/Tokyo', 'yyyy/MM/dd: HH:mm')
+})
 </script>
 
 <style scoped>

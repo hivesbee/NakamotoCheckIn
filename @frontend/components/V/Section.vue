@@ -1,10 +1,10 @@
 <template>
   <section class="vSection">
     <v-h2>
-      <slot name="heading"></slot>
+      <slot name="heading" />
     </v-h2>
 
-    <slot name="body"></slot>
+    <slot name="body" />
   </section>
 </template>
 
