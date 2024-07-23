@@ -3,6 +3,8 @@ export const useShopStore = defineStore('shopStore', () => {
 
   const config = useRuntimeConfig()
 
+  const getShopById = (id: Shop['id']) => shops.value.find((shop: Shop) => shop.id === id)
+
   const fetch = async () => {
     shops.value = await $fetch<Shop[]>('/shops', {
       baseURL: config.public.apiBaseURL
@@ -12,11 +14,13 @@ export const useShopStore = defineStore('shopStore', () => {
   }
 
   return {
+    // states
     shops,
+    // getters
+    getShopById,
+    // actions
     fetch
   }
 }, {
-  persist: {
-    storage: persistedState.localStorage
-  }
+  persist: true
 })

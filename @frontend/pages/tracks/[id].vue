@@ -1,8 +1,14 @@
 <template>
   <nuxt-layout name="authenticated">
     <section class="trackDetail">
-      <nuxt-link class="trackDetail_back" to="/tracks">
-        <svg-icon class="trackDetail_back_icon" name="arrow-back" />
+      <nuxt-link
+        class="trackDetail_back"
+        to="/tracks"
+      >
+        <svg-icon
+          class="trackDetail_back_icon"
+          name="arrow-back"
+        />
         戻る
       </nuxt-link>
       <v-h2>
@@ -10,11 +16,21 @@
         チェックイン詳細
       </v-h2>
       <template v-if="detailTrack">
-        <track-card class="trackList_card" :track="detailTrack" />
+        <track-card
+          class="trackList_card"
+          :track="detailTrack"
+        />
       </template>
       <div class="trackDetail_delete">
-        <button class="trackDetail_deleteButton" type="button" @click="deleteTrack()">
-          <svg-icon class="trackDetail_deleteButton_icon" name="delete" />
+        <button
+          class="trackDetail_deleteButton"
+          type="button"
+          @click="deleteTrack()"
+        >
+          <svg-icon
+            class="trackDetail_deleteButton_icon"
+            name="delete"
+          />
           削除
         </button>
       </div>
@@ -23,26 +39,27 @@
 </template>
 
 <script setup lang="ts">
-  const route = useRoute()
-  const track = useTrackStore()
+const route = useRoute()
+const track = useTrackStore()
 
-  const id = Array.isArray(route.params.id) ? route.params.id[0] : route.params.id
-  console.log(id)
+const id = Array.isArray(route.params.id) ? route.params.id[0] : route.params.id
+console.log(id)
 
-  const detailTrack = track.tracks.find((t) => t.id === id)
+const detailTrack = track.tracks.find(t => t.id === id)
 
-  const deleteTrack = async () => {
-    if (!window.confirm('削除してよろしいですか？')) {
-      return
-    }
-
-    try {
-      await track.remove(id)
-      navigateTo('/tracks')
-    } catch {
-      // catch Error
-    }
+const deleteTrack = async () => {
+  if (!window.confirm('削除してよろしいですか？')) {
+    return
   }
+
+  try {
+    await track.remove(id)
+    navigateTo('/tracks')
+  }
+  catch {
+    // catch Error
+  }
+}
 </script>
 
 <style scoped>

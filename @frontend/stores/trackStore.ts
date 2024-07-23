@@ -1,3 +1,5 @@
+import { differenceInMilliseconds } from 'date-fns'
+
 export const useTrackStore = defineStore('trackStore', () => {
   const tracks = ref<CheckInLogDetail[]>([])
 
@@ -14,7 +16,6 @@ export const useTrackStore = defineStore('trackStore', () => {
     tracks.value = await $fetch<CheckInLogDetail[]>('/check_in_logs', {
       baseURL: config.public.apiBaseURL,
       params: {
-        embed: 'shop',
         user_id: userId
       }
     }) ?? []
@@ -24,12 +25,13 @@ export const useTrackStore = defineStore('trackStore', () => {
 
   const checkIn = async (shopId: Shop['id'], checkedAt?: Track['checked_at']) => {
     const user = useUserStore()
+    // const shopStore = useShopStore()
 
     if (user.user === null) {
       throw new Error('User not found.')
     }
 
-    const { data } = await useFetch('/check_in_logs', {
+    const data = await $fetch<CheckInLogDetail>('/check_in_logs', {
       baseURL: config.public.apiBaseURL,
       method: 'POST',
       body: {
@@ -39,7 +41,15 @@ export const useTrackStore = defineStore('trackStore', () => {
       }
     })
 
-    tracks.value.push(data.value as CheckInLogDetail)
+    if (!data) {
+      throw new Error('Check in failed.')
+    }
+
+    console.log(data)
+
+    tracks.value = [data, ...tracks.value].sort((a, b) =>
+      differenceInMilliseconds(new Date(a.checked_at), new Date(b.checked_at))
+    )
   }
 
   const remove = async (id: Track['id']) => {
@@ -58,7 +68,5 @@ export const useTrackStore = defineStore('trackStore', () => {
     remove
   }
 }, {
-  persist: {
-    storage: persistedState.localStorage
-  }
+  persist: true
 })

@@ -8,4 +8,6 @@
 
 <script setup lang="ts">
 const shopStore = useShopStore()
+
+await shopStore.fetch()
 </script>

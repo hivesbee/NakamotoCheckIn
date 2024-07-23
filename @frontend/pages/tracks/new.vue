@@ -1,28 +1,14 @@
 <template>
   <NuxtLayout name="authenticated">
     <section-check-in-auto class="sectionCheckInAuto" />
-    <hr />
+    <hr>
     <section-check-in-manual class="sectionCheckInManual" />
   </NuxtLayout>
 </template>
 
 <script setup lang="ts">
-  import SectionCheckInAuto from '~/components/pages/tracks/SectionCheckInAuto.vue'
-  import SectionCheckInManual from '~/components/pages/tracks/SectionCheckInManual.vue'
-
-
-  const { data } = useAuth()
-
-  const shop = useShopStore()
-  const track = useTrackStore()
-  const user = useUserStore()
-
-  await shop.fetch()
-
-  const email = data.value?.user?.email ?? null 
-  if (email) {
-    await user.fetch(email)
-  }
+import SectionCheckInAuto from '~/components/pages/tracks/SectionCheckInAuto.vue'
+import SectionCheckInManual from '~/components/pages/tracks/SectionCheckInManual.vue'
 </script>
 
 <style scoped>

@@ -67,7 +67,7 @@ const meClass = computed(() => ({
   'vNav_link-active': route.path.includes('/profile')
 }))
 
-const userName = computed(() => user.name ? user.name : '')
+const userName = computed(() => user?.name ?? '')
 </script>
 
 <style scoped>

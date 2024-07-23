@@ -1,11 +1,11 @@
 class ShopsController < ApplicationController
-  before_action :set_shop, only: %i[ show update destroy ]
+  before_action :set_shop, only: %i[show update destroy]
 
   # GET /shops
   def index
-    @shops = Shop.all.order([:prefecture_order, :shop_order])
+    shops = Shop.all.order(%i[prefecture_order shop_order])
 
-    render json: @shops
+    render json: shops, each_serializer: ShopSerializer, status: :ok
   end
 
   # GET /shops/1
@@ -39,13 +39,14 @@ class ShopsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_shop
-      @shop = Shop.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def shop_params
-      params.require(:shop).permit(:name)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_shop
+    @shop = Shop.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def shop_params
+    params.require(:shop).permit(:name)
+  end
 end

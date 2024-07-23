@@ -11,6 +11,9 @@
 <script setup lang="ts">
 const userStore = useUserStore()
 
+const trackStore = useTrackStore()
+const shopStore = useShopStore()
+
 try {
   await useAsyncData('userStore', () => userStore.signIn())
 }
@@ -23,11 +26,11 @@ if (!userStore.user) {
 }
 
 try {
-  const trackStore = useTrackStore()
-  const shopStore = useShopStore()
+  trackStore.fetch()
+  shopStore.fetch()
 
-  await useAsyncData('trackStore', () => trackStore.fetch())
-  await useAsyncData('shopStore', () => shopStore.fetch())
+  // await useAsyncData('trackStore', () => trackStore.fetch())
+  // await useAsyncData('shopStore', () => shopStore.fetch())
 }
 catch (e) {
   console.error(e)

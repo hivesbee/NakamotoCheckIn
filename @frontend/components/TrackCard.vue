@@ -2,16 +2,14 @@
   <div class="trackCard">
     <div class="trackCard_img" />
     <div class="trackCard_note">
-      <client-only>
-        <time class="trackCard_note_time">
-          {{ formatedDate }}
-        </time>
-      </client-only>
+      <time class="trackCard_note_time">
+        {{ formatedDate }}
+      </time>
       <br>
       <p class="trackCard_title">
         蒙古タンメン中本
         <br>
-        {{ track.shop_name }}
+        {{ track.shop.name }}
       </p>
     </div>
   </div>
@@ -25,7 +23,7 @@ const props = defineProps<{
   track: Track
 }>()
 
-const shopImg = computed(() => `url("/img/shops/${props.track.shop_id}.jpg")`)
+const shopImg = computed(() => `url("/img/shops/${props.track.shop.id}.jpg")`)
 
 const formatedDate = computed(() => {
   if (import.meta.server) {

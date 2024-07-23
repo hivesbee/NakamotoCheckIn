@@ -1,6 +1,8 @@
 <template>
   <nuxt-layout name="authenticated">
-    <track-list :tracks="track.tracks" />
+    <client-only>
+      <track-list :tracks="trackStore.tracks" />
+    </client-only>
   </nuxt-layout>
 </template>
 
@@ -9,8 +11,5 @@ definePageMeta({
   layout: 'authenticated'
 })
 
-const track = useTrackStore()
+const trackStore = useTrackStore()
 </script>
-
-<style scoped>
-</style>
