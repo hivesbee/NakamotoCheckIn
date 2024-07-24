@@ -12,4 +12,5 @@ definePageMeta({
 })
 
 const trackStore = useTrackStore()
+await trackStore.fetch()
 </script>

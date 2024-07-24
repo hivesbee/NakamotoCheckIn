@@ -6,6 +6,9 @@ type Shop = {
   address: string
   tel: string
   business_hour: string
+  regular_holiday: string
+  shop_order: number
+
   created_at: string
   updated_at: string
 }
